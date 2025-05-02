@@ -1,0 +1,29 @@
+name: Lint HTML and CSS
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  lint:
+    name: Lint Files
+    runs-on: ubuntu-latest
+
+    steps:
+     
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16 
+      - name: Install Linting Tools
+        run: npm install htmlhint stylelint --save-dev
+      - name: Lint HTML Files
+        run: npx htmlhint "**/*.html"
+      - name: Lint CSS Files
+        run: npx stylelint "**/*.css"
+
